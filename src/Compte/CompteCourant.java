@@ -18,11 +18,11 @@ public class CompteCourant extends Compte {
 
     @Override
     public void retirer(double montant) {
-        if (solde - montant >= -decouvert) {
+        if (solde + decouvert >= montant) {
             solde -= montant;
-            System.out.println("Retrait Effectue : " + montant);
+            System.out.println("Retrait effectué !");
         } else {
-            System.out.println("Retrait impossible");
+            System.out.println("Fonds insuffisants !");
         }
     }
 

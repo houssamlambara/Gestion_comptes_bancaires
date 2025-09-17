@@ -26,9 +26,9 @@ public class Main {
             switch (choix) {
                 case 1:
                     do {
-                        System.out.println("1. Compte Courant : ");
-                        System.out.println("2. Compte Epargne : ");
-                        System.out.println("3. Retour : ");
+                        System.out.println("1. Compte Courant ");
+                        System.out.println("2. Compte Epargne ");
+                        System.out.println("3. Retour ");
                         System.out.println("Votre choix : ");
 
                         compteType = scanner.nextInt();
@@ -90,6 +90,32 @@ public class Main {
                         ((CompteEpargne) compte).verser(montant, source);
                     }
                     break;
+
+                case 3: // Effectuer un retrait
+                    if (comptes.isEmpty()) {
+                        System.out.println("Aucun compte disponible !");
+                        break;
+                    }
+
+                    System.out.println("=== Choisissez le compte pour le retrait ===");
+                    for (int i = 0; i < comptes.size(); i++) {
+                        System.out.println((i + 1) + ". " + comptes.get(i).getCode() +
+                                " - Solde: " + comptes.get(i).getSolde());
+                    }
+
+                    int compteIndexRetrait = scanner.nextInt() - 1;
+                    if (compteIndexRetrait < 0 || compteIndexRetrait >= comptes.size()) {
+                        System.out.println("Compte invalide !");
+                        break;
+                    }
+
+                    Compte compteSelectionne = comptes.get(compteIndexRetrait);
+                    System.out.print("Entrez le montant à retirer : ");
+                    double montantRetrait = scanner.nextDouble();
+                    compteSelectionne.retirer(montantRetrait);
+                    System.out.println("Nouveau solde : " + compteSelectionne.getSolde());
+                    break;
+
 
                 case 4:
                     System.out.println("\n=== Liste des comptes ===");

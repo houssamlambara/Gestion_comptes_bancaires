@@ -9,7 +9,7 @@
         public static int chiffre = 11111;
         protected String code;
         protected double solde;
-        public static ArrayList<Operation>listeOperations = new ArrayList<>() ;
+        public ArrayList<Operation> listeOperations = new ArrayList<>();
 
         public Compte(Double solde){
             this.solde = solde;
