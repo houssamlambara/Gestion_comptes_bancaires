@@ -1,4 +1,5 @@
-import com.bank.model.*;
+import Compte.Compte;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

@@ -1,6 +1,9 @@
-    package com.bank.model;
+    package Compte;
+    import Operation.Operation;
+    import Operation.Versement;
+
     import java.util.ArrayList;
-    import java.util.HashMap;
+//    import java.util.HashMap;
 
     public abstract class Compte {
         public static int chiffre = 11111;

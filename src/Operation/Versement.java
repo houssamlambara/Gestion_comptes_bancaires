@@ -1,6 +1,6 @@
-package com.bank.model;
+package Operation;
 
-public class Versement extends Operation{
+public class Versement extends Operation {
     private String source;
 
     public Versement(double montant, String source){

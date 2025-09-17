@@ -1,4 +1,4 @@
-package com.bank.model;
+package Operation;
 
 import java.time.LocalDate;
 import java.util.UUID;

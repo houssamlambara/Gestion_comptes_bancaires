@@ -1,6 +1,6 @@
-package com.bank.model;
+package Compte;
 
-public class CompteEpargne extends Compte{
+public class CompteEpargne extends Compte {
     protected double tauxInteret;
 
     public CompteEpargne(double solde, double tauxInteret){
