@@ -41,7 +41,7 @@
                 solde += montant;
                 Versement v = new Versement(montant, source);
                 listeOperations.add(v);
-                System.out.println("Versement de " + montant + " effectué depuis " + source + ". Nouveau solde : " + solde);
+                System.out.println("Versement de " + montant + " effectué depuis " + source + ". Nouveau solde : " + solde + "DH");
             } else {
                 System.out.println("Montant invalide !");
             }

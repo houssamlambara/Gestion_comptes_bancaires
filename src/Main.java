@@ -1,6 +1,8 @@
 import Compte.Compte;
 import Compte.CompteCourant;
 import Compte.CompteEpargne;
+import Operation.Operation;
+import Operation.Versement;
 import Operation.Retrait;
 
 import java.util.ArrayList;
@@ -19,8 +21,9 @@ public class Main {
             System.out.println("2. Effectuer un Versement ");
             System.out.println("3. Effectuer un Retrait ");
             System.out.println("4. Effectuer un Virement entre Compte");
-            System.out.println("5. Afficher tous les comptes");
-            System.out.println("6. Quitter");
+            System.out.println("5. Consulter le Solde dun Compte");
+            System.out.println("6. Consulter les Operations");
+            System.out.println("7. Quitter");
             System.out.print("Votre choix : ");
 
             choix = scanner.nextInt();
@@ -102,7 +105,7 @@ public class Main {
                     System.out.println("=== Choisissez le compte pour le retrait ===");
                     for (int i = 0; i < comptes.size(); i++) {
                         System.out.println((i + 1) + ". " + comptes.get(i).getCode() +
-                                " - Solde: " + comptes.get(i).getSolde());
+                                " - Solde: " + comptes.get(i).getSolde() + "DH");
                     }
 
                     int compteIndexRetrait = scanner.nextInt() - 1;
@@ -164,24 +167,73 @@ public class Main {
                             " vers " + compteDest.getCode() + " pour un montant de " + montantVirement);
                     break;
 
-                case 5:
-                    System.out.println("\n=== Liste des comptes ===");
+                case 5: // Consulter
                     if (comptes.isEmpty()) {
-                        System.out.println("Aucun compte créé !");
+                        System.out.println("Aucun compte disponible !");
+                        break;
+                    }
+
+                    System.out.println("=== Choisissez le compte à consulter ===");
+                    for (int i = 0; i < comptes.size(); i++) {
+                        System.out.println((i + 1) + ". " + comptes.get(i).getCode());
+                    }
+
+                    int compteIndexSolde = scanner.nextInt() - 1;
+                    if (compteIndexSolde < 0 || compteIndexSolde >= comptes.size()) {
+                        System.out.println("Compte invalide !");
+                        break;
+                    }
+
+                    Compte compteSolde = comptes.get(compteIndexSolde);
+                    System.out.println("Le solde du compte " + compteSolde.getCode() +
+                            " est : " + compteSolde.getSolde() + " DH");
+                    break;
+
+                case 6: // Consulter les opérations
+                    if (comptes.isEmpty()) {
+                        System.out.println("Aucun compte disponible !");
+                        break;
+                    }
+
+                    System.out.println("=== Choisissez le compte pour voir ses opérations ===");
+                    for (int i = 0; i < comptes.size(); i++) {
+                        System.out.println((i + 1) + ". " + comptes.get(i).getCode());
+                    }
+
+                    int compteIndexOp = scanner.nextInt() - 1;
+                    if (compteIndexOp < 0 || compteIndexOp >= comptes.size()) {
+                        System.out.println("Compte invalide !");
+                        break;
+                    }
+
+                    Compte compteOp = comptes.get(compteIndexOp);
+
+                    if (compteOp.listeOperations.isEmpty()) {
+                        System.out.println("Aucune opération trouvée pour ce compte.");
                     } else {
-                        for (Compte c : comptes) {
-                            c.afficherDetails();
-                            System.out.println("-------------------------");
+                        System.out.println("=== Opérations du compte " + compteOp.getCode() + " ===");
+                        for (Operation op : compteOp.listeOperations) {
+                            if (op instanceof Versement) {
+                                Versement v = (Versement) op;
+                                System.out.println("Versement : " + v.getMontant() + " DH - Source : " + v.getSource());
+                            } else if (op instanceof Retrait) {
+                                Retrait o = (Retrait) op;
+                                System.out.println("Retrait : " + o.getMontant() + " DH - Destination : " + o.getDestination());
+                            } else {
+                                System.out.println("Opération : " + op.getMontant() + " DH");
+                            }
                         }
                     }
                     break;
-                case 6:
+
+                case 7:
                     System.out.println("Au revoir !");
                     break;
+
                 default:
                     System.out.println("Choix invalide !");
             }
-        } while (choix != 6);
+        } while (choix != 7);
 
         scanner.close();
     }

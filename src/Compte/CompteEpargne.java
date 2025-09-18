@@ -19,7 +19,7 @@ public class CompteEpargne extends Compte {
             solde -= montant;
             Retrait retrait = new Retrait(montant, "Retrait");
             listeOperations.add(retrait);
-            System.out.println("Retrait de " + montant + " effectué. Nouveau solde : " + solde);
+            System.out.println("Retrait de " + montant + " effectué. Nouveau solde : " + solde + "DH");
         } else {
             System.out.println("Fonds insuffisants !");
         }
