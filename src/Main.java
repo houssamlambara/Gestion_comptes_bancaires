@@ -1,6 +1,7 @@
 import Compte.Compte;
 import Compte.CompteCourant;
 import Compte.CompteEpargne;
+import Operation.Retrait;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,8 +18,9 @@ public class Main {
             System.out.println("1. Creer un compte");
             System.out.println("2. Effectuer un Versement ");
             System.out.println("3. Effectuer un Retrait ");
-            System.out.println("4. Afficher tous les comptes");
-            System.out.println("5. Quitter");
+            System.out.println("4. Effectuer un Virement entre Compte");
+            System.out.println("5. Afficher tous les comptes");
+            System.out.println("6. Quitter");
             System.out.print("Votre choix : ");
 
             choix = scanner.nextInt();
@@ -61,7 +63,7 @@ public class Main {
                     } while (compteType != 3);
                     break;
 
-                case 2: // Effectuer un versement
+                case 2: // Versement
                     if (comptes.isEmpty()) {
                         System.out.println("Aucun compte disponible !");
                         break;
@@ -81,7 +83,7 @@ public class Main {
                     System.out.print("Montant de Versement : ");
                     double montant = scanner.nextDouble();
                     System.out.print("Source de Versement : ");
-                    scanner.nextLine(); // consommer le retour à la ligne
+                    scanner.nextLine();
                     String source = scanner.nextLine();
 
                     if (compte instanceof CompteCourant) {
@@ -91,7 +93,7 @@ public class Main {
                     }
                     break;
 
-                case 3: // Effectuer un retrait
+                case 3: // retrait
                     if (comptes.isEmpty()) {
                         System.out.println("Aucun compte disponible !");
                         break;
@@ -112,12 +114,57 @@ public class Main {
                     Compte compteSelectionne = comptes.get(compteIndexRetrait);
                     System.out.print("Entrez le montant à retirer : ");
                     double montantRetrait = scanner.nextDouble();
+                    scanner.nextLine();
+                    System.out.print("Entrez la destination du retrait : ");
+                    String destination = scanner.nextLine();
                     compteSelectionne.retirer(montantRetrait);
+                    Retrait r = new Retrait(montantRetrait, destination);
+                    compteSelectionne.listeOperations.add(r);
                     System.out.println("Nouveau solde : " + compteSelectionne.getSolde());
+                    System.out.println("Retrait effectué depuis : " + r.getDestination());
                     break;
 
-
                 case 4:
+                    if (comptes.size() < 2) {
+                        System.out.println("Il faut au moins deux comptes pour effectuer un virement !");
+                        break;
+                    }
+
+                    System.out.println("Choisissez le compte SOURCE :");
+                    for (int i = 0; i < comptes.size(); i++) {
+                        System.out.println((i + 1) + ". " + comptes.get(i).getCode() +
+                                " - Solde: " + comptes.get(i).getSolde());
+                    }
+                    int sourceIndex = scanner.nextInt() - 1;
+                    if (sourceIndex < 0 || sourceIndex >= comptes.size()) {
+                        System.out.println("Compte source invalide !");
+                        break;
+                    }
+                    Compte compteSource = comptes.get(sourceIndex);
+
+                    System.out.println("Choisissez le compte DESTINATION :");
+                    for (int i = 0; i < comptes.size(); i++) {
+                        if (i != sourceIndex) {
+                            System.out.println((i + 1) + ". " + comptes.get(i).getCode());
+                        }
+                    }
+                    int destIndex = scanner.nextInt() - 1;
+                    if (destIndex < 0 || destIndex >= comptes.size() || destIndex == sourceIndex) {
+                        System.out.println("Compte destination invalide !");
+                        break;
+                    }
+                    Compte compteDest = comptes.get(destIndex);
+                    System.out.print("Montant du virement : ");
+                    double montantVirement = scanner.nextDouble();
+
+                    compteSource.retirer(montantVirement);
+
+                    compteDest.verser(montantVirement, "Virement du compte " + compteSource.getCode());
+                    System.out.println("Virement effectué de " + compteSource.getCode() +
+                            " vers " + compteDest.getCode() + " pour un montant de " + montantVirement);
+                    break;
+
+                case 5:
                     System.out.println("\n=== Liste des comptes ===");
                     if (comptes.isEmpty()) {
                         System.out.println("Aucun compte créé !");
@@ -128,13 +175,13 @@ public class Main {
                         }
                     }
                     break;
-                case 5:
+                case 6:
                     System.out.println("Au revoir !");
                     break;
                 default:
                     System.out.println("Choix invalide !");
             }
-        } while (choix != 5);
+        } while (choix != 6);
 
         scanner.close();
     }
