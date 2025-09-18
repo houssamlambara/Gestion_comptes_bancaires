@@ -1,5 +1,6 @@
 package Compte;
 
+import Operation.Retrait;
 import java.util.HashMap;
 
 public class CompteCourant extends Compte {
@@ -18,9 +19,11 @@ public class CompteCourant extends Compte {
 
     @Override
     public void retirer(double montant) {
-        if (solde + decouvert >= montant) {
+        if (montant > 0 && solde + decouvert >= montant) {
             solde -= montant;
-            System.out.println("Retrait effectué !");
+            Retrait retrait = new Retrait(montant, "Retrait");
+            listeOperations.add(retrait);
+            System.out.println("Retrait de " + montant + " effectué. Nouveau solde : " + solde);
         } else {
             System.out.println("Fonds insuffisants !");
         }

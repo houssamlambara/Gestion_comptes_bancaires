@@ -15,8 +15,8 @@ public class Main {
         do {
             System.out.println("\n=== Menu Banque ===");
             System.out.println("1. Creer un compte");
-            System.out.println("2. Effectuer un Versement : ");
-            System.out.println("3. Effectuer un Retrait : ");
+            System.out.println("2. Effectuer un Versement ");
+            System.out.println("3. Effectuer un Retrait ");
             System.out.println("4. Afficher tous les comptes");
             System.out.println("5. Quitter");
             System.out.print("Votre choix : ");
