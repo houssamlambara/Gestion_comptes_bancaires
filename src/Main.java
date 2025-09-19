@@ -185,8 +185,7 @@ public class Main {
                     }
 
                     Compte compteSolde = comptes.get(compteIndexSolde);
-                    System.out.println("Le solde du compte " + compteSolde.getCode() +
-                            " est : " + compteSolde.getSolde() + " DH");
+                    compteSolde.afficherDetails();
                     break;
 
                 case 6: // Consulter les opérations
