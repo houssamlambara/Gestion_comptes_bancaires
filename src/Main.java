@@ -6,6 +6,7 @@ import Operation.Versement;
 import Operation.Retrait;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -13,9 +14,10 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int choix, compteType;
+        int choix = 0, compteType =0;
 
         do {
+            try{
             System.out.println("\n=== Menu Banque ===");
             System.out.println("1. Creer un compte");
             System.out.println("2. Effectuer un Versement ");
@@ -31,37 +33,42 @@ public class Main {
             switch (choix) {
                 case 1:
                     do {
-                        System.out.println("1. Compte Courant ");
-                        System.out.println("2. Compte Epargne ");
-                        System.out.println("3. Retour ");
-                        System.out.println("Votre choix : ");
+                        try {
+                            System.out.println("1. Compte Courant ");
+                            System.out.println("2. Compte Epargne ");
+                            System.out.println("3. Retour ");
+                            System.out.println("Votre choix : ");
 
-                        compteType = scanner.nextInt();
+                            compteType = scanner.nextInt();
 
-                        switch (compteType) {
-                            case 1:
-                                System.out.print("Rentrez votre solde : ");
-                                double soldeCourant = scanner.nextDouble();
-                                System.out.print("Rentrez votre decouvert : ");
-                                double decouvert = scanner.nextDouble();
-                                CompteCourant compteCourant = new CompteCourant(soldeCourant, decouvert);
-                                comptes.add(compteCourant);
-                                System.out.println("Compte courant créé !");
-                                break;
-                            case 2:
-                                System.out.print("Rentrez votre solde : ");
-                                double soldeEpargne = scanner.nextDouble();
-                                System.out.print("Rentrez le taux d'interet : ");
-                                double tauxInteret = scanner.nextDouble();
-                                CompteEpargne compteEpargne = new CompteEpargne(soldeEpargne, tauxInteret);
-                                comptes.add(compteEpargne);
-                                System.out.println("Compte épargne créé !");
-                                break;
-                            case 3:
-                                System.out.println("Retour au menu principal...");
-                                break;
-                            default:
-                                System.out.println("Choix invalide !");
+                            switch (compteType) {
+                                case 1:
+                                    System.out.print("Rentrez votre solde : ");
+                                    double soldeCourant = scanner.nextDouble();
+                                    System.out.print("Rentrez votre decouvert : ");
+                                    double decouvert = scanner.nextDouble();
+                                    CompteCourant compteCourant = new CompteCourant(soldeCourant, decouvert);
+                                    comptes.add(compteCourant);
+                                    System.out.println("Compte courant créé !");
+                                    break;
+                                case 2:
+                                    System.out.print("Rentrez votre solde : ");
+                                    double soldeEpargne = scanner.nextDouble();
+                                    System.out.print("Rentrez le taux d'interet : ");
+                                    double tauxInteret = scanner.nextDouble();
+                                    CompteEpargne compteEpargne = new CompteEpargne(soldeEpargne, tauxInteret);
+                                    comptes.add(compteEpargne);
+                                    System.out.println("Compte épargne créé !");
+                                    break;
+                                case 3:
+                                    System.out.println("Retour au menu principal...");
+                                    break;
+                                default:
+                                    System.out.println("Choix invalide !");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("⚠️ Entrez un nombre valide !");
+                            scanner.nextLine();
                         }
                     } while (compteType != 3);
                     break;
@@ -88,12 +95,8 @@ public class Main {
                     System.out.print("Source de Versement : ");
                     scanner.nextLine();
                     String source = scanner.nextLine();
+                    compte.verser(montant, source);
 
-                    if (compte instanceof CompteCourant) {
-                        ((CompteCourant) compte).verser(montant, source);
-                    } else if (compte instanceof CompteEpargne) {
-                        ((CompteEpargne) compte).verser(montant, source);
-                    }
                     break;
 
                 case 3: // Retrait
@@ -231,6 +234,10 @@ public class Main {
 
                 default:
                     System.out.println("Choix invalide !");
+            }
+            } catch (InputMismatchException e) {
+                System.out.println("⚠️ Entrez un nombre valide !");
+                scanner.nextLine(); // vider le buffer pour éviter boucle infinie
             }
         } while (choix != 7);
 
