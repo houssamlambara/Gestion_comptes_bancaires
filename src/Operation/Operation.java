@@ -4,17 +4,17 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public abstract class Operation {
-    protected String numero;
+    protected UUID numero;
     protected LocalDate date;
     protected double montant;
 
     public Operation(double montant){
-        this.numero = UUID.randomUUID().toString();
+        this.numero = UUID.randomUUID();
         this.date = LocalDate.now();
         this.montant = montant;
     }
 
-    public String getNumero() {
+    public UUID getNumero() {
         return numero;
     }
 

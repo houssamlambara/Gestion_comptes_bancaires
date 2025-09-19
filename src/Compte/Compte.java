@@ -33,17 +33,25 @@
         }
 
         public void codeGenerateur(){
-            code = "CPT-" + chiffre++;
+            try{
+                code = "CPT-" + chiffre++;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
         public void verser(double montant, String source) {
-            if (montant > 0) {
-                solde += montant;
-                Versement v = new Versement(montant, source);
-                listeOperations.add(v);
-                System.out.println("Versement de " + montant + " effectué depuis " + source + ". Nouveau solde : " + solde + "DH");
-            } else {
-                System.out.println("Montant invalide !");
+            try{
+                if (montant > 0) {
+                    solde += montant;
+                    Versement v = new Versement(montant, source);
+                    listeOperations.add(v);
+                    System.out.println("Versement de " + montant + " effectué depuis " + source + ". Nouveau solde : " + solde + "DH");
+                } else {
+                    System.out.println("Montant invalide !");
+                }
+            } catch (Exception e) {
+                System.out.println("⚠️ Erreur lors du versement ");
             }
         }
 

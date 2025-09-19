@@ -2,7 +2,7 @@ package Compte;
 import Operation.Retrait;
 
 public class CompteEpargne extends Compte {
-    protected double tauxInteret;
+    protected double tauxInteret = 0.05;
 
     public CompteEpargne(double solde, double tauxInteret){
         super(solde);
@@ -15,13 +15,17 @@ public class CompteEpargne extends Compte {
 
     @Override
     public void retirer(double montant) {
-        if (montant > 0 && solde >= montant) {
-            solde -= montant;
-            Retrait retrait = new Retrait(montant, "Retrait");
-            listeOperations.add(retrait);
-            System.out.println("Retrait de " + montant + " effectué. Nouveau solde : " + solde + "DH");
-        } else {
-            System.out.println("Fonds insuffisants !");
+        try{
+            if (montant > 0 && solde >= montant) {
+                solde -= montant;
+                Retrait retrait = new Retrait(montant, "Retrait");
+                listeOperations.add(retrait);
+                System.out.println("Retrait de " + montant + " effectué. Nouveau solde : " + solde + "DH");
+            } else {
+                System.out.println("Fonds insuffisants !");
+            }
+        } catch (Exception e) {
+            System.out.println("⚠️ Erreur lors du retrait : ");
         }
     }
 

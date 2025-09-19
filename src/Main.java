@@ -96,7 +96,7 @@ public class Main {
                     }
                     break;
 
-                case 3: // retrait
+                case 3: // Retrait
                     if (comptes.isEmpty()) {
                         System.out.println("Aucun compte disponible !");
                         break;
@@ -127,7 +127,7 @@ public class Main {
                     System.out.println("Retrait effectué depuis : " + r.getDestination());
                     break;
 
-                case 4:
+                case 4: // Virement entre Compte
                     if (comptes.size() < 2) {
                         System.out.println("Il faut au moins deux comptes pour effectuer un virement !");
                         break;
@@ -215,7 +215,7 @@ public class Main {
                         for (Operation op : compteOp.listeOperations) {
                             if (op instanceof Versement) {
                                 Versement v = (Versement) op;
-                                System.out.println("Versement : " + v.getMontant() + " DH - Source : " + v.getSource());
+                                System.out.println("UUID :" + v.getNumero() + " Versement : " + v.getMontant() + " DH - Source : " + v.getSource() + " Date :" + v.getDate());
                             } else if (op instanceof Retrait) {
                                 Retrait o = (Retrait) op;
                                 System.out.println("Retrait : " + o.getMontant() + " DH - Destination : " + o.getDestination());

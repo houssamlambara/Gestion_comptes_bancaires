@@ -19,13 +19,17 @@ public class CompteCourant extends Compte {
 
     @Override
     public void retirer(double montant) {
-        if (montant > 0 && solde + decouvert >= montant) {
-            solde -= montant;
-            Retrait retrait = new Retrait(montant, "Retrait");
-            listeOperations.add(retrait);
-            System.out.println("Retrait de " + montant + " effectué. Nouveau solde : " + solde + "DH");
-        } else {
-            System.out.println("Fonds insuffisants !");
+        try{
+            if (montant > 0 && solde + decouvert >= montant) {
+                solde -= montant;
+                Retrait retrait = new Retrait(montant, "Retrait");
+                listeOperations.add(retrait);
+                System.out.println("Retrait de " + montant + " effectué. Nouveau solde : " + solde + "DH");
+            } else {
+                System.out.println("Fonds insuffisants !");
+            }
+        } catch (Exception e) {
+            System.out.println("⚠️ Erreur lors du retrait " );
         }
     }
 
@@ -35,11 +39,10 @@ public class CompteCourant extends Compte {
         return 0;
     }
 
-    public void creerCompteCourant(CompteCourant compteCourant){
-        compteListe.put(this.code,compteCourant);
-        System.out.println(compteListe.get(this.code).toString());
-
-    }
+//    public void creerCompteCourant(CompteCourant compteCourant){
+//        compteListe.put(this.code,compteCourant);
+//        System.out.println(compteListe.get(this.code).toString());
+//    }
 
     @Override
     public String toString() {
@@ -53,7 +56,6 @@ public class CompteCourant extends Compte {
     @Override
 
     public void afficherDetails() {
-
         System.out.println("Code :" + code);
         System.out.println("solde :" + solde);
         System.out.println("Découvert :" + decouvert);
