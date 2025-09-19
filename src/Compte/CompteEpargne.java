@@ -36,7 +36,8 @@ public class CompteEpargne extends Compte {
 
     @Override
     public double calculerInteret(){
-    return solde * tauxInteret;
+        double taux = 0.05;
+        return solde * taux;
     }
 
     @Override
