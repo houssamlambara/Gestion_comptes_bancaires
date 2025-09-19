@@ -116,3 +116,10 @@ src/
 │
 │
 └─ Main.java
+
+Capture D'ecrant
+
+![Capture d’écran 2025-09-19 204016.png](../Capture%20d%E2%80%99%C3%A9cran%202025-09-19%20204016.png)
+![Capture d’écran 2025-09-19 204036.png](../Capture%20d%E2%80%99%C3%A9cran%202025-09-19%20204036.png)
+![Capture d’écran 2025-09-19 204300.png](../Capture%20d%E2%80%99%C3%A9cran%202025-09-19%20204300.png)
+![Capture d’écran 2025-09-19 204327.png](../Capture%20d%E2%80%99%C3%A9cran%202025-09-19%20204327.png)
